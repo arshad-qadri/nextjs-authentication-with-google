@@ -3,9 +3,7 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-
-let client_id =
-  "478939587987-gkl59res6b3ri5e8i46jg3saliqmnb9i.apps.googleusercontent.com";
+let client_id = process.env.NEXT_PUBLIC_CLIENT_ID;
 const page = () => {
   const handleSignin = (res) => {
     console.log(res);
@@ -14,13 +12,16 @@ const page = () => {
       password: "pistol",
     };
     if (res.credential) {
-      axios.post("https://reqres.in/api/register",fData).then((response)=>{
-      console.log(response);
-        localStorage.setItem("token", res.credential);
-        window.location.href = "/";
-      }).catch((err)=>{
-        console.log(err);
-      });
+      axios
+        .post("https://reqres.in/api/register", fData)
+        .then((response) => {
+          console.log(response);
+          localStorage.setItem("token", res.credential);
+          window.location.href = "/";
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
   function fetchD() {

@@ -14,11 +14,6 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <script src="https://accounts.google.com/gsi/client"></script>
-        {/* <script
-          src="https://apis.google.com/js/platform.js"
-          async
-          defer
-        ></script> */}
       </head>
       <body className={inter.className}>
         <Layout>{children}</Layout>

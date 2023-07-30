@@ -3,23 +3,25 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-let client_id =
-  "478939587987-gkl59res6b3ri5e8i46jg3saliqmnb9i.apps.googleusercontent.com";
+let client_id = process.env.NEXT_PUBLIC_CLIENT_ID;
 
 const page = () => {
-  const [formData,setFormData] = useState({email:"",password:""})
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const handleSignin = (res) => {
     if (res.credential) {
       let fData = {
         email: "eve.holt@reqres.in",
         password: "pistol",
       };
-    
-      axios.post("https://reqres.in/api/login",fData).then((response)=>{
-        console.log(response);
+
+      axios
+        .post("https://reqres.in/api/login", fData)
+        .then((response) => {
+          console.log(response);
           localStorage.setItem("token", res.credential);
           window.location.href = "/";
-        }).catch((err)=>{
+        })
+        .catch((err) => {
           console.log(err);
         });
     }
@@ -33,22 +35,24 @@ const page = () => {
       theme: "outline",
       size: "large",
     });
-   
   }, []);
-  const handleChange = (event)=>{
-setFormData({...formData, [event.target.name]:event.target.value})
-  }
-  const handleSubmit = (event)=>{
-    event.preventDefault()
-   
-    axios.post("https://reqres.in/api/login",formData).then((response)=>{
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    axios
+      .post("https://reqres.in/api/login", formData)
+      .then((response) => {
         console.log(response);
-          localStorage.setItem("token", response.token);
-          window.location.href = "/";
-        }).catch((err)=>{
-          console.log(err);
-        });
-  }
+        localStorage.setItem("token", response.token);
+        window.location.href = "/";
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
